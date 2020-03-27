@@ -3,7 +3,7 @@ A open source auto clicker for games
 
 ## Features
 - random wait time between clicks
-- random mouse movement (not implemented yet)
+- random mouse movement (alpha)
 
 ## How to use it
 - chose the range of the random wait time
