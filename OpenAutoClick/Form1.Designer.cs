@@ -1,6 +1,6 @@
 ﻿namespace OpenAutoClick
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Variable nécessaire au concepteur.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.numMinTime = new System.Windows.Forms.NumericUpDown();
             this.numMaxTime = new System.Windows.Forms.NumericUpDown();
             this.labMinTime = new System.Windows.Forms.Label();
@@ -37,9 +37,13 @@
             this.labAQP = new System.Windows.Forms.Label();
             this.labW = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.checkRandomMouse = new System.Windows.Forms.CheckBox();
+            this.labMaxDistance = new System.Windows.Forms.Label();
+            this.numMaxDistance = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.numMinTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMaxDistance)).BeginInit();
             this.SuspendLayout();
             // 
             // numMinTime
@@ -50,9 +54,19 @@
             0,
             0,
             0});
+            this.numMinTime.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this.numMinTime.Name = "numMinTime";
             this.numMinTime.Size = new System.Drawing.Size(120, 20);
             this.numMinTime.TabIndex = 1;
+            this.numMinTime.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this.numMinTime.ValueChanged += new System.EventHandler(this.numMinTime_ValueChanged);
             // 
             // numMaxTime
@@ -63,9 +77,19 @@
             0,
             0,
             0});
+            this.numMaxTime.Minimum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
             this.numMaxTime.Name = "numMaxTime";
             this.numMaxTime.Size = new System.Drawing.Size(120, 20);
             this.numMaxTime.TabIndex = 2;
+            this.numMaxTime.Value = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
             this.numMaxTime.ValueChanged += new System.EventHandler(this.numMaxTime_ValueChanged);
             // 
             // labMinTime
@@ -133,12 +157,61 @@
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
             // 
-            // Form1
+            // checkRandomMouse
+            // 
+            this.checkRandomMouse.AutoSize = true;
+            this.checkRandomMouse.Font = new System.Drawing.Font("RuneScape UF", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkRandomMouse.ForeColor = System.Drawing.Color.Yellow;
+            this.checkRandomMouse.Location = new System.Drawing.Point(14, 157);
+            this.checkRandomMouse.Name = "checkRandomMouse";
+            this.checkRandomMouse.Size = new System.Drawing.Size(161, 20);
+            this.checkRandomMouse.TabIndex = 10;
+            this.checkRandomMouse.Text = "Random mouse position";
+            this.checkRandomMouse.UseVisualStyleBackColor = true;
+            this.checkRandomMouse.CheckedChanged += new System.EventHandler(this.checkRandomMouse_CheckedChanged);
+            // 
+            // labMaxDistance
+            // 
+            this.labMaxDistance.AutoSize = true;
+            this.labMaxDistance.Font = new System.Drawing.Font("RuneScape UF", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labMaxDistance.ForeColor = System.Drawing.Color.Yellow;
+            this.labMaxDistance.Location = new System.Drawing.Point(14, 184);
+            this.labMaxDistance.Name = "labMaxDistance";
+            this.labMaxDistance.Size = new System.Drawing.Size(154, 21);
+            this.labMaxDistance.TabIndex = 11;
+            this.labMaxDistance.Text = "Max distance (Px) :";
+            // 
+            // numMaxDistance
+            // 
+            this.numMaxDistance.Location = new System.Drawing.Point(18, 208);
+            this.numMaxDistance.Maximum = new decimal(new int[] {
+            100000000,
+            0,
+            0,
+            0});
+            this.numMaxDistance.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numMaxDistance.Name = "numMaxDistance";
+            this.numMaxDistance.Size = new System.Drawing.Size(116, 20);
+            this.numMaxDistance.TabIndex = 12;
+            this.numMaxDistance.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(296, 291);
+            this.Controls.Add(this.numMaxDistance);
+            this.Controls.Add(this.labMaxDistance);
+            this.Controls.Add(this.checkRandomMouse);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.labW);
             this.Controls.Add(this.labAQP);
@@ -149,12 +222,13 @@
             this.Controls.Add(this.numMinTime);
             this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "OpenClicker";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numMinTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMaxDistance)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -169,6 +243,9 @@
         private System.Windows.Forms.Label labAQP;
         private System.Windows.Forms.Label labW;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.CheckBox checkRandomMouse;
+        private System.Windows.Forms.Label labMaxDistance;
+        private System.Windows.Forms.NumericUpDown numMaxDistance;
     }
 }
 

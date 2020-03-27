@@ -16,7 +16,7 @@ using System.Drawing;
 
 namespace OpenAutoClick
 {
-    public partial class Form1 : Form {
+    public partial class MainForm : Form {
         //keyboard hook
         private LowLevelKeyboardListener _listener;
 
@@ -28,12 +28,12 @@ namespace OpenAutoClick
         private const int MOUSEEVENTF_RIGHTDOWN = 0x08;
         private const int MOUSEEVENTF_RIGHTUP = 0x10;
 
+        //random mouse position
+        private Boolean randomMousePosition;
+
         //cursor
         [DllImport("user32.dll")]
         public static extern IntPtr LoadCursorFromFile(string filename);
-
-        //state of autoclick
-        private Boolean run;
 
         //min time and max time
         private int minTime;
@@ -52,6 +52,9 @@ namespace OpenAutoClick
         private Thread getRunningThread() {
             return this.runningThread;
         }
+        private Boolean getRandomMousePosition() {
+            return this.randomMousePosition;
+        }
 
         //setters
         private void setMinTime(int minTime) {
@@ -62,10 +65,38 @@ namespace OpenAutoClick
         }
         public void setRunningThread() {
             runningThread = new Thread(() => {
+                Boolean firstClick = true;
+
+                //original position of the mouse
+                int xOg = 0;
+                int yOg = 0;
+
                 while (true) {
+                    //if it's the first click, get the original position of the mouse
+                    if (firstClick) {
+                        xOg = Cursor.Position.X;
+                        yOg = Cursor.Position.Y;
+                        firstClick = false;
+                    }
+
+                    //generate a random number of ms 
                     Random rnd = new Random();
                     int sleepTime = rnd.Next(getMinTime(), getMaxTime());
                     Thread.Sleep(sleepTime);
+
+                    //if randomMousePosition is checked
+                    int xIncrement = 0;
+                    int yIncrement = 0;
+                    if (checkRandomMouse.Checked) {
+                        Random rndMouse = new Random();
+                        xIncrement = rndMouse.Next(-(int)numMaxDistance.Value, (int)numMaxDistance.Value);
+                        yIncrement = rndMouse.Next(-(int)numMaxDistance.Value, (int)numMaxDistance.Value);
+
+                        int posX = xOg + xIncrement;
+                        int posY = yOg + yIncrement;
+                        Cursor.Position = new Point(posX, posY);
+                    }
+
 
                     //mouse click
                     uint X = (uint)Cursor.Position.X;
@@ -74,8 +105,11 @@ namespace OpenAutoClick
                 }
             });
         }
+        public void setRandomMousePosition(Boolean randomMousePosition) {
+            this.randomMousePosition = randomMousePosition;
+        }
 
-        public Form1() {
+        public MainForm() {
             InitializeComponent();
         }
 
@@ -90,6 +124,11 @@ namespace OpenAutoClick
             IntPtr colorcursorhandle = LoadCursorFromFile(Directory.GetCurrentDirectory() + "\\DScim.cur");
             mycursor.GetType().InvokeMember("handle", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetField, null, mycursor, new object[] { colorcursorhandle });
             this.Cursor = mycursor;
+
+            randomMousePosition = false;
+            labMaxDistance.Visible = false;
+            numMaxDistance.Visible = false;
+
         }
 
         void _listener_OnKeyPressed(object sender, KeyPressedArgs e) {
@@ -124,7 +163,10 @@ namespace OpenAutoClick
 
         private void numMinTime_ValueChanged(object sender, EventArgs e) {
             setMinTime((int)numMinTime.Value);
-            numMaxTime.Minimum = getMinTime() + 5;
+            if ((int)numMinTime.Value >= (int)numMaxTime.Value) {
+                setMaxTime((int)numMinTime.Value + 5);
+                numMaxTime.Minimum = getMinTime() + 5;
+            }
         }
 
         private void numMaxTime_ValueChanged(object sender, EventArgs e) {
@@ -137,6 +179,19 @@ namespace OpenAutoClick
             _listener.UnHookKeyboard();
             if (runningThread != null) {
                 runningThread.Abort();
+            }
+        }
+
+        private void checkRandomMouse_CheckedChanged(object sender, EventArgs e) {
+            if (checkRandomMouse.Checked) {
+                setRandomMousePosition(true);
+                labMaxDistance.Visible = true;
+                numMaxDistance.Visible = true;
+            }
+            else {
+                setRandomMousePosition(false);
+                labMaxDistance.Visible = false;
+                numMaxDistance.Visible = false;
             }
         }
     }
