@@ -1,0 +1,10 @@
+C:\Users\gabri\Documents\projetProg\OpenAutoClick\OpenAutoClick\OpenAutoClick\bin\Debug\OpenAutoClick.exe.config
+C:\Users\gabri\Documents\projetProg\OpenAutoClick\OpenAutoClick\OpenAutoClick\bin\Debug\OpenAutoClick.exe
+C:\Users\gabri\Documents\projetProg\OpenAutoClick\OpenAutoClick\OpenAutoClick\bin\Debug\OpenAutoClick.pdb
+C:\Users\gabri\Documents\projetProg\OpenAutoClick\OpenAutoClick\OpenAutoClick\obj\Debug\OpenAutoClick.csprojAssemblyReference.cache
+C:\Users\gabri\Documents\projetProg\OpenAutoClick\OpenAutoClick\OpenAutoClick\obj\Debug\OpenAutoClick.Form1.resources
+C:\Users\gabri\Documents\projetProg\OpenAutoClick\OpenAutoClick\OpenAutoClick\obj\Debug\OpenAutoClick.Properties.Resources.resources
+C:\Users\gabri\Documents\projetProg\OpenAutoClick\OpenAutoClick\OpenAutoClick\obj\Debug\OpenAutoClick.csproj.GenerateResource.cache
+C:\Users\gabri\Documents\projetProg\OpenAutoClick\OpenAutoClick\OpenAutoClick\obj\Debug\OpenAutoClick.csproj.CoreCompileInputs.cache
+C:\Users\gabri\Documents\projetProg\OpenAutoClick\OpenAutoClick\OpenAutoClick\obj\Debug\OpenAutoClick.exe
+C:\Users\gabri\Documents\projetProg\OpenAutoClick\OpenAutoClick\OpenAutoClick\obj\Debug\OpenAutoClick.pdb
