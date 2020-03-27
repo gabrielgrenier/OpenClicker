@@ -9,3 +9,6 @@ A open source auto clicker for games
 - chose the range of the random wait time
 - press "Insert" key to start it
 - press "Delete" key to stop it
+
+## Screenshot
+![OpenClicker screenshot](https://github.com/gabrielgrenier/OpenClicker/blob/master/screenshots/ss1.png)
