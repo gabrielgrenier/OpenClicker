@@ -4,7 +4,7 @@ A open source auto clicker for games
 ## Features
 - random wait time between clicks
 - random mouse movement (alpha)
-- key selector (not implemented yet)
+- key binding
 
 ## How to use it
 - chose the range of the random wait time
