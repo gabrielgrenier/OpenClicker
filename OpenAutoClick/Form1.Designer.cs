@@ -48,6 +48,7 @@
             this.labPressStartKey = new System.Windows.Forms.Label();
             this.btnSetEndKey = new System.Windows.Forms.Button();
             this.labPressEndKey = new System.Windows.Forms.Label();
+            this.linkGithub = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.numMinTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMaxTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -293,12 +294,26 @@
             this.labPressEndKey.TabIndex = 20;
             this.labPressEndKey.Text = "Press a key . . .";
             // 
+            // linkGithub
+            // 
+            this.linkGithub.AutoSize = true;
+            this.linkGithub.LinkColor = System.Drawing.Color.Yellow;
+            this.linkGithub.Location = new System.Drawing.Point(11, 288);
+            this.linkGithub.Name = "linkGithub";
+            this.linkGithub.Size = new System.Drawing.Size(189, 13);
+            this.linkGithub.TabIndex = 21;
+            this.linkGithub.TabStop = true;
+            this.linkGithub.Text = "Click here to visit OpenClicker\'s Github";
+            this.linkGithub.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.linkGithub.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkGithub_LinkClicked);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(571, 310);
+            this.Controls.Add(this.linkGithub);
             this.Controls.Add(this.labPressEndKey);
             this.Controls.Add(this.btnSetEndKey);
             this.Controls.Add(this.labPressStartKey);
@@ -352,6 +367,7 @@
         private System.Windows.Forms.Label labPressStartKey;
         private System.Windows.Forms.Button btnSetEndKey;
         private System.Windows.Forms.Label labPressEndKey;
+        private System.Windows.Forms.LinkLabel linkGithub;
     }
 }
 

@@ -179,9 +179,11 @@ namespace OpenAutoClick
             txtStartKey.Enabled = false;
             txtEndKey.Enabled = false;
 
-            //hide lab
+            //hide elements
             labPressStartKey.Visible = false;
             labPressEndKey.Visible = false;
+            labMaxDistance.Visible = false;
+            numMaxDistance.Visible = false;
 
             //key recording
             recordStartKey = false;
@@ -307,6 +309,16 @@ namespace OpenAutoClick
 
             labPressEndKey.Visible = true;
             setRecordEndKey(true);
+        }
+
+        private void linkGithub_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
+            try {
+                linkGithub.LinkVisited = true;
+                System.Diagnostics.Process.Start("https://github.com/gabrielgrenier/OpenClicker");
+
+            } catch(Exception ex) {
+                MessageBox.Show("Couldn't open the URL", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
