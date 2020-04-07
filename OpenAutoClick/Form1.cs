@@ -30,6 +30,13 @@ namespace OpenAutoClick
         //random mouse position
         private Boolean randomMousePosition;
 
+        //start & end key
+        String startKey;
+        String endKey;
+        Boolean recordStartKey;
+        Boolean recordEndKey;
+        
+
         //cursor
         [DllImport("user32.dll")]
         public static extern IntPtr LoadCursorFromFile(string filename);
@@ -54,6 +61,18 @@ namespace OpenAutoClick
         private Boolean getRandomMousePosition() {
             return this.randomMousePosition;
         }
+        private String getStartKey() {
+            return this.startKey;
+        }
+        private String getEndKey() {
+            return this.endKey;
+        }
+        private Boolean getRecordStartKey() {
+            return this.recordStartKey;
+        }
+        private Boolean getRecordEndKey() {
+            return this.recordEndKey;
+        }
 
         //setters
         private void setMinTime(int minTime) {
@@ -62,7 +81,7 @@ namespace OpenAutoClick
         private void setMaxTime(int maxTime) {
             this.maxTime = maxTime;
         }
-        public void setRunningThread() {
+        private void setRunningThread() {
             runningThread = new Thread(() => {
                 Boolean firstClick = true;
 
@@ -103,8 +122,20 @@ namespace OpenAutoClick
                 }
             });
         }
-        public void setRandomMousePosition(Boolean randomMousePosition) {
+        private void setRandomMousePosition(Boolean randomMousePosition) {
             this.randomMousePosition = randomMousePosition;
+        }
+        private void setStartKey(String startKey) {
+            this.startKey = startKey;
+        }
+        private void setEndKey(String endKey) {
+            this.endKey = endKey;
+        }
+        private void setRecordStartKey(Boolean recordStartKey) {
+            this.recordStartKey = recordStartKey;
+        }
+        private void setRecordEndKey(Boolean recordEndKey) {
+            this.recordEndKey = recordEndKey;
         }
 
         public MainForm() {
@@ -116,7 +147,9 @@ namespace OpenAutoClick
             _listener.OnKeyPressed += _listener_OnKeyPressed;
             _listener.HookKeyboard();
 
-            //this.Cursor = new Cursor(Directory.GetCurrentDirectory() + "\\DScim.cur");
+            //Default key
+            startKey = "Insert";
+            endKey = "Delete";
 
             //cursor
             Cursor mycursor = new Cursor(Cursor.Current.Handle);
@@ -138,25 +171,70 @@ namespace OpenAutoClick
             labMinTime.Font = new Font(pfc.Families[0], labMinTime.Font.Size);
             labTitle.Font = new Font(pfc.Families[0], labTitle.Font.Size);
             labW.Font = new Font(pfc.Families[0], labW.Font.Size);
+            labPressStartKey.Font = new Font(pfc.Families[0], labPressStartKey.Font.Size);
+            labPressEndKey.Font = new Font(pfc.Families[0], labPressEndKey.Font.Size);
             checkRandomMouse.Font = new Font(pfc.Families[0], checkRandomMouse.Font.Size);
+
+            //disable txt
+            txtStartKey.Enabled = false;
+            txtEndKey.Enabled = false;
+
+            //hide lab
+            labPressStartKey.Visible = false;
+            labPressEndKey.Visible = false;
+
+            //key recording
+            recordStartKey = false;
+            recordEndKey = false;
         }
 
         void _listener_OnKeyPressed(object sender, KeyPressedArgs e) {
-            //MessageBox.Show(e.KeyPressed.ToString());
-
-            if (e.KeyPressed.ToString() == "Insert") {
-                if(runningThread == null){ 
-                    setRunningThread();
-                    runningThread.Start();
+            //if the user is not setting up his keybinds
+            if(!recordStartKey && !recordEndKey) { 
+                if (e.KeyPressed.ToString().ToUpper() == startKey.ToUpper()) {
+                    if(runningThread == null){ 
+                        setRunningThread();
+                        runningThread.Start();
+                    }
+                    else if(runningThread!=null && !runningThread.IsAlive) {
+                        setRunningThread();
+                        runningThread.Start();
+                    }
                 }
-                else if(runningThread!=null && !runningThread.IsAlive) {
-                    setRunningThread();
-                    runningThread.Start();
+
+                if (e.KeyPressed.ToString().ToUpper() == endKey.ToUpper() && runningThread != null) {
+                    runningThread.Abort();
                 }
             }
+            else {
+                if (recordStartKey) {
+                    if (e.KeyPressed.ToString() != endKey) {
+                        txtStartKey.Text = e.KeyPressed.ToString();
+                        setStartKey(e.KeyPressed.ToString());
+                        btnSetStartKey.Enabled = true;
+                        btnSetEndKey.Enabled = true;
+                        labPressStartKey.Visible = false;
 
-            if (e.KeyPressed.ToString() == "Delete" && runningThread != null) {
-                runningThread.Abort();
+                        setRecordStartKey(false);
+                    }
+                    else {
+                        MessageBox.Show("The Start key cannot be the same as the End key.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                else {
+                    if (e.KeyPressed.ToString() != startKey) {
+                        txtEndKey.Text = e.KeyPressed.ToString();
+                        btnSetStartKey.Enabled = true;
+                        btnSetEndKey.Enabled = true;
+                        labPressEndKey.Visible = false;
+
+                        setEndKey(e.KeyPressed.ToString());
+                        setRecordEndKey(false);
+                    }
+                    else {
+                        MessageBox.Show("The End key cannot be the same as the Start key.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
             }
 
         }
@@ -203,6 +281,32 @@ namespace OpenAutoClick
                 labMaxDistance.Visible = false;
                 numMaxDistance.Visible = false;
             }
+        }
+
+        private void txtStartKey_TextChanged(object sender, EventArgs e) {
+            setStartKey(txtStartKey.Text);
+        }
+
+        private void txtEndKey_TextChanged(object sender, EventArgs e) {
+            setEndKey(txtEndKey.Text);
+        }
+
+        private void btnSetStartKey_Click(object sender, EventArgs e) {
+            //disable btns
+            btnSetStartKey.Enabled = false;
+            btnSetEndKey.Enabled = false;
+
+            labPressStartKey.Visible = true;
+            setRecordStartKey(true);
+        }
+
+        private void btnSetEndKey_Click(object sender, EventArgs e) {
+            //disable btns
+            btnSetStartKey.Enabled = false;
+            btnSetEndKey.Enabled = false;
+
+            labPressEndKey.Visible = true;
+            setRecordEndKey(true);
         }
     }
 }
