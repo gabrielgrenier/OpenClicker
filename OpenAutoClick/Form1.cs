@@ -10,9 +10,8 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Reflection;
-using System.Drawing;
+using System.Drawing.Text;
 
 namespace OpenAutoClick
 {
@@ -97,8 +96,7 @@ namespace OpenAutoClick
                         Cursor.Position = new Point(posX, posY);
                     }
 
-
-                    //mouse click
+                    //mouse clicks
                     uint X = (uint)Cursor.Position.X;
                     uint Y = (uint)Cursor.Position.Y;
                     mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, X, Y, 0, 0);
@@ -120,15 +118,27 @@ namespace OpenAutoClick
 
             //this.Cursor = new Cursor(Directory.GetCurrentDirectory() + "\\DScim.cur");
 
+            //cursor
             Cursor mycursor = new Cursor(Cursor.Current.Handle);
             IntPtr colorcursorhandle = LoadCursorFromFile(Directory.GetCurrentDirectory() + "\\DScim.cur");
-            mycursor.GetType().InvokeMember("handle", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetField, null, mycursor, new object[] { colorcursorhandle });
+            mycursor.GetType().InvokeMember("handle", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetField, null, mycursor, new object[] { colorcursorhandle }); 
             this.Cursor = mycursor;
 
-            randomMousePosition = false;
-            labMaxDistance.Visible = false;
-            numMaxDistance.Visible = false;
+            //resizing
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
 
+            //adding font
+            PrivateFontCollection pfc = new PrivateFontCollection();
+            pfc.AddFontFile(Directory.GetCurrentDirectory() + "\\runescape_uf.ttf");
+
+            //set font to labels
+            labAQP.Font = new Font(pfc.Families[0], labAQP.Font.Size);
+            labMaxDistance.Font = new Font(pfc.Families[0], labMaxDistance.Font.Size);
+            labMaxTime.Font = new Font(pfc.Families[0], labMaxTime.Font.Size);
+            labMinTime.Font = new Font(pfc.Families[0], labMinTime.Font.Size);
+            labTitle.Font = new Font(pfc.Families[0], labTitle.Font.Size);
+            labW.Font = new Font(pfc.Families[0], labW.Font.Size);
+            checkRandomMouse.Font = new Font(pfc.Families[0], checkRandomMouse.Font.Size);
         }
 
         void _listener_OnKeyPressed(object sender, KeyPressedArgs e) {
