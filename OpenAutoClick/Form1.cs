@@ -173,6 +173,8 @@ namespace OpenAutoClick
             labW.Font = new Font(pfc.Families[0], labW.Font.Size);
             labPressStartKey.Font = new Font(pfc.Families[0], labPressStartKey.Font.Size);
             labPressEndKey.Font = new Font(pfc.Families[0], labPressEndKey.Font.Size);
+            labStartKey.Font = new Font(pfc.Families[0], labStartKey.Font.Size);
+            labEndKey.Font = new Font(pfc.Families[0], labEndKey.Font.Size);
             checkRandomMouse.Font = new Font(pfc.Families[0], checkRandomMouse.Font.Size);
 
             //disable txt
