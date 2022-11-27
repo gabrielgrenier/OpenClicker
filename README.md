@@ -18,4 +18,4 @@ An open source auto clicker for games
 ![OpenClicker screenshot](https://github.com/gabrielgrenier/OpenClicker/blob/master/screenshots/ss2.png)
 
 ## Warning
-I can't guarantee that you wont get ban on your game for using this, use it at your own risk.
+I can't guarantee that your game account won't get for using this, use it at your own risk.
